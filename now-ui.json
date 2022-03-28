@@ -4,29 +4,29 @@
 	        "innerComponents": [],
 			"uiBuilder": {
 				"associatedTypes": ["global.core", "global.landing-page"],
-				"label": "My Component",
+				"label": "Properties Testing",
 				"icon": "document-outline",
 				"description": "A description of my component",
 				"category": "primitives"
 			},
 			"properties": [
 				{
-					"name": "starting_value",
-					"label": "Starting Value",
-					"description": "A number to start at",
+					"name": "tableName",
+					"label": "Table",
+					"description": "Table to retrieve",
 					"readOnly": false,
-					"fieldType": "number",
+					"fieldType": "string",
 					"required": false,
-					"defaultValue": 1
+					"defaultValue": ""
 				},
 				{
-					"name": "increment",
+					"name": "fields",
 					"label": "Increment",
-					"description": "A number to start at",
+					"description": "Comma-separated fields to reteurn",
 					"readOnly": false,
-					"fieldType": "number",
+					"fieldType": "string",
 					"required": false,
-					"defaultValue": 1
+					"defaultValue": ""
 				}
             ]
 	    }

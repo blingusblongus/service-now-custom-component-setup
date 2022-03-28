@@ -1,29 +1,34 @@
 import { createCustomElement } from '@servicenow/ui-core';
 import snabbdom from '@servicenow/ui-renderer-snabbdom';
+import axios from 'axios';
 import styles from './styles.scss';
-// import BasicNestedComponent from './basic-nested-component/BasicNestedComponent';
-import { thing } from './basic-nested-component/thing';
-import { BasicNestedComponent } from './basic-nested-component/BasicNestedComponent'
+import { createHttpEffect } from '@servicenow/ui-effect-http';
+
+const USER_FETCHED_SUCCESS = 'USER_FETCHED_SUCCESS'
+const fetchUserEffect = createHttpEffect('api/users/')
 
 const view = (state, { updateState }) => {
-
-	console.log(thing);
 	const { properties } = state;
-	console.log('properties:', properties);
+
+	const {
+		userName,
+	} = properties;
+
 	console.log(state);
 
-	const handleClick = () => {
-		updateState({
-			value: state.value + properties.increment,
-		})
-	}
+	// axios.get('https://dev104932.service-now.com/api/now/table/sys_user?sysparm_limit=10&sysparm_fields=first_name', {
+	// 	headers: {
+	// 		"Authorization": "Basic YWRtaW46ZGFoNGVGMkRUWUJ0",
+	// 		"Access-Control-Allow-Origin": "http://localhost:8081",
+	// 		"Access-Control-Allow-Methods": "GET",
+	// 		"Access-Control-Allow-Headers": "Content-Type, Authorization"
+	// 	}
+	// }).then(response => console.log(response))
+	// 	.catch(err => console.log(err))
 
 	return (
 		<view>
-			<div on-click={handleClick}>{properties.name}</div>
-			<div>Value: {state.value || properties.initialValue}</div>
-			<div>Increment: {properties.increment}</div>
-			<BasicNestedComponent />
+			<div>Hello {userName}</div>
 		</view>
 	);
 
@@ -34,12 +39,15 @@ createCustomElement('x-792462-properties-test', {
 	view,
 	styles,
 	properties: {
-		text: { default: 'Hello Nick' },
-		name: { default: 5 },
-		initialValue: { default: 1 },
-		increment: { default: 1 },
+		userName: { default: 'default user' },
+		tableName: { default: 'sys_user' },
+		fields: { default: 'first_name' },
+
 	},
-	initialState: {
-		value: 0,
-	},
+	actionHandlers: {
+		'USER_FETCHED': fetchUserEffect,
+		[USER_FETCHED_SUCCESS]: ({ action, updateState }) => {
+			console.log(action);
+		}
+	}
 });
