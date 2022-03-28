@@ -10,15 +10,6 @@
 				"category": "primitives"
 			},
 			"properties": [
-                {
-                    "name": "text",
-                    "label": "Text",
-                    "description": "",
-                    "readOnly": false,
-                    "fieldType": "string",
-                    "required": true,
-                    "defaultValue": "Here is some default text"
-                },
 				{
 					"name": "starting_value",
 					"label": "Starting Value",
@@ -30,7 +21,7 @@
 				},
 				{
 					"name": "increment",
-					"label": "Starting Value",
+					"label": "Increment",
 					"description": "A number to start at",
 					"readOnly": false,
 					"fieldType": "number",

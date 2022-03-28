@@ -40,6 +40,6 @@ createCustomElement('x-792462-properties-test', {
 		increment: { default: 1 },
 	},
 	initialState: {
-		value: null,
+		value: 0,
 	},
 });
