@@ -8,7 +8,36 @@
 				"icon": "document-outline",
 				"description": "A description of my component",
 				"category": "primitives"
-			}
+			},
+			"properties": [
+                {
+                    "name": "text",
+                    "label": "Text",
+                    "description": "",
+                    "readOnly": false,
+                    "fieldType": "string",
+                    "required": true,
+                    "defaultValue": "Here is some default text"
+                },
+				{
+					"name": "starting_value",
+					"label": "Starting Value",
+					"description": "A number to start at",
+					"readOnly": false,
+					"fieldType": "number",
+					"required": false,
+					"defaultValue": 1
+				},
+				{
+					"name": "increment",
+					"label": "Starting Value",
+					"description": "A number to start at",
+					"readOnly": false,
+					"fieldType": "number",
+					"required": false,
+					"defaultValue": 1
+				}
+            ]
 	    }
 	},
 	"scopeName": "x_792462_propert_0"
