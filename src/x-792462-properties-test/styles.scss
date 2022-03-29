@@ -1,1 +1,15 @@
 @import '@servicenow/sass-kit/host';
+
+.text-center {
+    text-align: center;
+}
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+
+table {
+    margin: 10px auto
+}

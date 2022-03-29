@@ -20,9 +20,27 @@
 					"defaultValue": ""
 				},
 				{
+					"name": "limit",
+					"label": "Limit",
+					"description": "Limit table field returned",
+					"readOnly": false,
+					"fieldType": "number",
+					"required": false,
+					"defaultValue": ""
+				},
+				{
 					"name": "fields",
 					"label": "Increment",
-					"description": "Comma-separated fields to reteurn",
+					"description": "Comma-separated fields to return",
+					"readOnly": false,
+					"fieldType": "string",
+					"required": false,
+					"defaultValue": ""
+				},
+				{
+					"name": "queries",
+					"label": "Queries",
+					"description": "Comma-separated name-value pairs",
 					"readOnly": false,
 					"fieldType": "string",
 					"required": false,

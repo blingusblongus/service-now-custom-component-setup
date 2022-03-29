@@ -3,7 +3,7 @@ const TableComponent = ({ rows }) => {
     console.log(rows);
     console.log(fields);
     return (
-        <div>
+        <div class="table-container">
             <table>
                 <tr>
                     {fields.map(field => {
@@ -13,8 +13,8 @@ const TableComponent = ({ rows }) => {
                 {rows.map((row, i) => {
                     return <tr key={i}>
                         {fields.map((field, i) => {
-                        return <td key={i}>{row[field]}</td>
-                    })}
+                            return <td key={i}>{row[field]}</td>
+                        })}
                     </tr>
                 })}
             </table>
