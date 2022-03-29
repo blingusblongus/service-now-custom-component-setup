@@ -53,7 +53,7 @@
 					"readOnly": false,
 					"fieldType": "string",
 					"required": false,
-					"defaultValue": ""
+					"defaultValue": "active=true"
 				}
             ]
 	    }

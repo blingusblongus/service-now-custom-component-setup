@@ -4,16 +4,18 @@ import axios from 'axios';
 import styles from './styles.scss';
 // import { createHttpEffect } from '@servicenow/ui-effect-http';
 
-import TableComponent from './src/TableComponent/TableComponent';
+
 
 const USER_FETCHED = 'USER_FETCHED';
 const {COMPONENT_RENDERED} = actionTypes;
 
+
+import TableComponent from './src/TableComponent/TableComponent';
 const view = (state, { updateState, dispatch }) => {
 	const { properties, tableData } = state;
 
 	const {
-		userName,
+		fields,
 	} = properties;
 
 	console.log(state);
@@ -22,7 +24,7 @@ const view = (state, { updateState, dispatch }) => {
 		<view>
 			<div className="text-center">Hello {properties.userName}</div>
 			{/* {tableData && <pre>{JSON.stringify(tableData, null, 2)}</pre>} */}	
-			{tableData && <TableComponent rows={tableData}/>}
+			{tableData && <TableComponent rows={tableData} fields={fields}/>}
 		</view>
 	);
 
@@ -34,8 +36,6 @@ const view = (state, { updateState, dispatch }) => {
 async function httpEffect(url, options, coeffects) {
 	const {action, dispatch, properties} = coeffects;
 	const {tableName, limit, fields, queries} = properties;
-
-	
 
 	url += `${tableName}?sysparm_limit=${limit}&sysparm_fields=${fields}`;
 

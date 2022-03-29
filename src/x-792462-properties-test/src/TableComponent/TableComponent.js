@@ -1,7 +1,10 @@
-const TableComponent = ({ rows }) => {
-    const fields = Object.keys(rows[0]);
+const TableComponent = ({ rows, fields }) => {
+    // const fields = Object.keys(rows[0]);
     console.log(rows);
     console.log(fields);
+
+    fields = fields.split(/,\s*/);
+    console.log('fields', fields);
     return (
         <div class="table-container">
             <table>
