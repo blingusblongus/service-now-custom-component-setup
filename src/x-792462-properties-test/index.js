@@ -3,40 +3,19 @@ import snabbdom from '@servicenow/ui-renderer-snabbdom';
 import axios from 'axios';
 import styles from './styles.scss';
 // import { createHttpEffect } from '@servicenow/ui-effect-http';
-
+import view from './src/view';
 
 
 const USER_FETCHED = 'USER_FETCHED';
 const {COMPONENT_RENDERED} = actionTypes;
 
-
-import TableComponent from './src/TableComponent/TableComponent';
-const view = (state, { updateState, dispatch }) => {
-	const { properties, tableData } = state;
-
-	const {
-		fields,
-	} = properties;
-
-	console.log(state);
-	
-	return (
-		<view>
-			<div className="text-center">Hello {properties.userName}</div>
-			{/* {tableData && <pre>{JSON.stringify(tableData, null, 2)}</pre>} */}	
-			{tableData && <TableComponent rows={tableData} fields={fields}/>}
-		</view>
-	);
-
-};
-
-
 //////////////////// GET TABLE
 // the function we want to comprise the effect
 async function httpEffect(url, options, coeffects) {
-	const {action, dispatch, properties} = coeffects;
+	const { dispatch, properties } = coeffects;
 	const {tableName, limit, fields, queries} = properties;
 
+	// build REST params
 	url += `${tableName}?sysparm_limit=${limit}&sysparm_fields=${fields}`;
 
 	let queryArr = queries.split(',');
@@ -49,9 +28,9 @@ async function httpEffect(url, options, coeffects) {
 	dispatch('FETCH_STARTED');
 	try {
 		const result = await axios.get(url, {
-				headers: {
-					"Authorization": "Basic YWRtaW46ZGFoNGVGMkRUWUJ0",
-				}
+				// headers: {
+				// 	"Authorization": "Basic YWRtaW46ZGFoNGVGMkRUWUJ0",
+				// }
 			})
 		dispatch('FETCH_SUCCEEDED', result);
 	}catch(e){
@@ -82,7 +61,7 @@ createCustomElement('x-792462-properties-test', {
 	properties: {
 		userName: { default: 'default user' },
 		tableName: { default: 'sys_user' },
-		fields: { default: 'first_name,last_name' },
+		fields: { default: '' },
 		limit: { default: '10'},
 		queries: { default: 'active=true'}
 	},

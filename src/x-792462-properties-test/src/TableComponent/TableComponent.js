@@ -4,7 +4,12 @@ const TableComponent = ({ rows, fields }) => {
     console.log(fields);
 
     fields = fields.split(/,\s*/);
-    console.log('fields', fields);
+
+    //handle empty field arguments
+    if(fields.length < 2 && fields[0] === ''){
+        fields = Object.keys(rows[0]);
+    }
+    
     return (
         <div class="table-container">
             <table>
