@@ -4,33 +4,25 @@ import axios from 'axios';
 import styles from './styles.scss';
 // import { createHttpEffect } from '@servicenow/ui-effect-http';
 
-const USER_FETCHED_SUCCESS = 'USER_FETCHED_SUCCESS'
+import TableComponent from './src/TableComponent/TableComponent';
+
 const USER_FETCHED = 'USER_FETCHED';
-// const fetchUserEffect = createHttpEffect('api/now/table/sys_user?sysparm_limit=10&sysparm_fields=first_name')
 const {COMPONENT_RENDERED} = actionTypes;
 
 const view = (state, { updateState, dispatch }) => {
-	const { properties } = state;
+	const { properties, tableData } = state;
 
 	const {
 		userName,
 	} = properties;
 
 	console.log(state);
-
-	// axios.get('https://dev104932.service-now.com/api/now/table/sys_user?sysparm_limit=10&sysparm_fields=first_name', {
-	// 	headers: {
-	// 		"Authorization": "Basic YWRtaW46ZGFoNGVGMkRUWUJ0",
-	// 	}
-	// }).then(response => console.log(response))
-	// 	.catch(err => console.log(err))
-
-	// let response = createHttpEffect('api/now/table/sys_user?sysparm_limit=10&sysparm_fields=first_name')
-	// console.log(response);
 	
 	return (
 		<view>
 			<div on-click={()=>dispatch(USER_FETCHED)}>Hello {properties.userName}</div>
+			{tableData && <pre>{JSON.stringify(tableData, null, 2)}</pre>}
+			{tableData && <TableComponent rows={tableData}/>}
 		</view>
 	);
 
@@ -86,8 +78,14 @@ createCustomElement('x-792462-properties-test', {
 	actionHandlers: {
 		// dispatched within component view or COMPONENT_CONNECTED action handler
 		[COMPONENT_RENDERED]: fetchUserEffect,
+		['USER_FETCHED']: fetchUserEffect,
 		// success
-		FETCH_SUCCEEDED: handleFetchUserSucceeded,
+		FETCH_SUCCEEDED: ({action, state, updateState}) => {
+			handleFetchUserSucceeded({action});
+			// this is probably not ideal but it seems to work
+			if(state.tableData) return;
+			updateState({tableData: action.payload.data.result});
+		},
 		// fail
 		FETCH_FAILED: handleFetchUserFailed,
 	}
