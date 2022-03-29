@@ -4,12 +4,21 @@
 	        "innerComponents": [],
 			"uiBuilder": {
 				"associatedTypes": ["global.core", "global.landing-page"],
-				"label": "Properties Testing",
+				"label": "Table GET",
 				"icon": "document-outline",
-				"description": "A description of my component",
+				"description": "Retrieve and filter a table",
 				"category": "primitives"
 			},
 			"properties": [
+				{
+					"name": "userName",
+					"label": "User",
+					"description": "Name of user to greet",
+					"readOnly": false,
+					"fieldType": "string",
+					"required": false,
+					"defaultValue": "Jon"
+				},
 				{
 					"name": "tableName",
 					"label": "Table",
@@ -17,7 +26,7 @@
 					"readOnly": false,
 					"fieldType": "string",
 					"required": false,
-					"defaultValue": ""
+					"defaultValue": "sys_user"
 				},
 				{
 					"name": "limit",
@@ -26,16 +35,16 @@
 					"readOnly": false,
 					"fieldType": "number",
 					"required": false,
-					"defaultValue": ""
+					"defaultValue": "25"
 				},
 				{
 					"name": "fields",
-					"label": "Increment",
+					"label": "fields",
 					"description": "Comma-separated fields to return",
 					"readOnly": false,
 					"fieldType": "string",
 					"required": false,
-					"defaultValue": ""
+					"defaultValue": "first_name, last_name"
 				},
 				{
 					"name": "queries",

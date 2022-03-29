@@ -28,6 +28,8 @@ const view = (state, { updateState, dispatch }) => {
 
 };
 
+
+//////////////////// GET TABLE
 // the function we want to comprise the effect
 async function httpEffect(url, options, coeffects) {
 	const {action, dispatch, properties} = coeffects;
@@ -65,29 +67,13 @@ function createHttpEffect(url, options) {
 	}
 }
 
-//the effect handler
-// const fetchUserEffect = ({state}) => {
-// 	console.log(state);
-// 	// let queries = '?';
-// 	// for(let field of state.properties.fields.split(',')){
-// 	// 	if(queries.length > 1){
-// 	// 		queries += '&'
-// 	// 	}
-// 	// 	console.log(field);
-// 	// 	queries += field + '=' + state.properties[field];
-// 	// }
-
-// 	const tableUrl = `/api/now/table/${state.tableName}?sysparm_limit=10&sysparm_fields=${state.properties.fields}`;
-// 	createHttpEffect(tableUrl, {});
-// }
-
 const fetchUserEffect = createHttpEffect('api/now/table/');
 
 // handler for fetch success
 const handleFetchUserSucceeded = ({action}) => console.log(action.payload);
 
 // handler for fetch fail
-const handleFetchUserFailed = ({action}) => alert('User fetch failed!')
+const handleFetchUserFailed = ({action}) => console.log('User fetch failed!')
 
 createCustomElement('x-792462-properties-test', {
 	renderer: { type: snabbdom },
@@ -100,7 +86,6 @@ createCustomElement('x-792462-properties-test', {
 		limit: { default: '10'},
 		queries: { default: 'active=true'}
 	},
-	// url: '/api/now/table/sys_user',
 	actionHandlers: {
 		// dispatched within component view or COMPONENT_CONNECTED action handler
 		[COMPONENT_RENDERED]: fetchUserEffect,

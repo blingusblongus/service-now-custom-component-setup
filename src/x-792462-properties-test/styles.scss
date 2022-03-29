@@ -11,5 +11,13 @@
 }
 
 table {
-    margin: 10px auto
+    margin: 10px auto;
+    background-color: rgb(241, 255, 239);
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px rgb(63, 63, 63);
+    padding: 10px;
+}
+
+tr:hover {
+    background-color: rgb(231, 245, 229);
 }
