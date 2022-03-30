@@ -19,8 +19,8 @@ createCustomElement('x-792462-properties-test', {
 		userName: { default: 'default user' },
 		tableName: { default: 'sys_user' },
 		fields: { default: '' },
-		limit: { default: '10' },
-		queries: { default: 'active=true' }
+		limit: { default: '25' },
+		queries: { default: '' }
 	},
 	actionHandlers: {
 		// dispatched within component view or COMPONENT_CONNECTED action handler

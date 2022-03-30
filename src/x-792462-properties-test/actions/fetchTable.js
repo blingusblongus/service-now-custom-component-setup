@@ -10,12 +10,14 @@ async function httpEffect(url, options, coeffects) {
 	// build REST params
 	url += `${tableName}?sysparm_limit=${limit}&sysparm_fields=${fields}`;
 
-	let queryArr = queries.split(',');
-	if (queries[0] !== '') {
-		for (let query of queryArr) {
-			url += `&${query}`;
-		}
-	}
+	// let queryArr = queries.split(/,\s*/);
+	// if (queries[0] !== '') {
+	// 	for (let query of queryArr) {
+	// 		url += `&${query}`;
+	// 	}
+	// }
+
+    url += `&sysparm_query=${queries.replace(' ', '')}`;
 
 	dispatch('FETCH_STARTED');
 	try {
