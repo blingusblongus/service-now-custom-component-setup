@@ -25,7 +25,6 @@ createCustomElement('x-792462-properties-test', {
 	actionHandlers: {
 		// dispatched within component view or COMPONENT_CONNECTED action handler
 		[COMPONENT_RENDERED]: fetchTableEffect,
-		// ['USER_FETCHED']: fetchTableEffect,
 		// success
 		FETCH_SUCCEEDED: ({ action, state, updateState }) => {
 			handleFetchTableSucceeded({ action });
