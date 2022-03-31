@@ -3,7 +3,7 @@
 ## Short Version
 1. Follow [Dan's instructions](https://creator-dna.com/blog/macos-setup), at which point you should be able to deploy a static component to your instance.
 2. Define the UI Builder sidebar fields by adding a 'properties' array to `now-ui.json`.
-3. Connect these properties to the state of the component by adding a 'properties' object (with `propertyName: { default: 'default value' }` in the createElement() function in the component's `index.js` file.
+3. Connect these properties to the state of the component by adding a 'properties' object (with `propertyName: { default: 'default value' }` in the createCustomElement() function in the component's `index.js` file.
 4. Reference passed in properties inside components by with `const { properties } = state`
 5. Set up an Effect to query the ServiceNow REST api using the passed-in properties
 6. Connect that effect with the appropriate action and action handler (probably `{ COMPONENT_RENDERED } = actionTypes`, with actionTypes imported from '@service-now/core-ui`)
@@ -70,7 +70,7 @@ To pass values from the UI Builder UI to a custom component, the component state
 				},
                 ...
 ```
-2. In the createElement() function, add a property called 'properties' to the arguments - this will be automatically mapped with the matching properties defined in `now-ui.json`
+2. In the createCustomElement() function, add a property called 'properties' to the arguments - this will be automatically mapped with the matching properties defined in `now-ui.json`
 ```
 // index.js (component level);
 
@@ -86,6 +86,7 @@ createCustomElement('x-792462-properties-test', {
 		queries: { default: '' }
 	},
 ```
+3. Access the properties in the view by destructuring state: `const { properties } = state`. Note that state is passed to the view (and effects, if included) by the createCustomElement() function, but must be passed manually to any subcomponents within the view.
 
 ## Troubleshooting
 
@@ -100,6 +101,11 @@ createCustomElement('x-792462-properties-test', {
   },
   ```
 
-## Further Mysteries
+## Questions For Further Development
 
-- I haven't looked into it much, but 
+- Not sure what the best way to dynamically style components is. [SN suggests themes](https://developer.servicenow.com/dev.do#!/reference/now-experience/quebec/ui-framework/main-concepts/styles), but I suspect that, for cases where we want maximum flexibility over just a few css properties, using CSS modules controlled from the UI Builder sidebar might be simpler. 
+
+## Useful Links
+
+- [Dan's Setup Instructions](https://creator-dna.com/blog/macos-setup)
+- [SN Table REST API docs](https://developer.servicenow.com/dev.do#!/reference/api/sandiego/rest/c_TableAPI#table-GET?navFilter=table) 
