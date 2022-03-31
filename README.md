@@ -90,11 +90,34 @@ createCustomElement('x-792462-properties-test', {
 
 ## Setting up REST calls and Actions
 
-I don't remember if I tested this just yeeting to deployment, but at least in development, calls to the REST API only went through when 
+Using the properties passed in from the UI builder sidebar, you can then just formulate a normal request to the REST API, and update the state when the data is returned.
+
+```
+// This isn't actually how I did it, because I made it more complicated than it needed to be by using action handlers to hook into the lifecycle...but here's the simplified and unstreamlined way to do exactly one REST call when the component loads, and then rerender when the data arrives.
+
+const { tableName, limit, fields, queries } = properties;
+
+// build REST params
+if(!state.tableData){
+    let url = 'api/now/table/`
+    url += `${tableName}?sysparm_limit=${limit}&sysparm_fields=${fields}`;
+    url += `&sysparm_query=${queries.replace(' ', '')}`;
+
+    axios.get(url)
+            .then(response => {
+                updateState({tableData: response.data.result})
+            })
+            .catch(err => console.log(err) // or handle err somehow);
+}
+
+```
+
+>*I just this minute realized that using actions is actually completely optional. It's just SN's weird way of using the component lifecycle to kick off events, and send information by dispatching actions from anywhere in the component. Ultimately, it's definitely useful for complex components or doing certain actions at different stages of the lifecycle, but for simple cases, using actions to kick off REST calls isn't necessary. So I'm not actually going to describe them here because I only barely know what I'm talking about*
+
 
 ## Troubleshooting
 
-- If you run into CORS errors in development, you may need to set a proxy in now-cli.json. For me, it ended up working whether or not I had the now-cli file configured (as long as you're logged in via the cli, and using their action/effect to make the request), but that suggestion still popped up on a lot of the documentation. ¯\\_(ツ)_/¯
+- If you run into CORS errors in development, make sure the url you're providing is just the endpoint, not the whole address (`axios.get('api/now/tables/tableName')`, for example). If it still doesn't work, you may need to set a proxy in now-cli.json. For me, it ended up working whether or not I had the now-cli file configured (as long as you're logged in via the cli, and using their action/effect to make the request), but that suggestion still popped up on a lot of the documentation. ¯\\_(ツ)_/¯
 
     ```
     "development": {
@@ -104,7 +127,7 @@ I don't remember if I tested this just yeeting to deployment, but at least in de
         }
     },
     ```
-- Hmu with any questions about stuff that I didn't explain clearly or went different for you.
+- Hmu with any questions about stuff that I didn't explain clearly or went different for you, or other questions about how to organize or pass properties to child components.
 
 ## Questions For Further Development
 
@@ -112,6 +135,7 @@ I don't remember if I tested this just yeeting to deployment, but at least in de
 - PUT requests should be easy, but I haven't tried them yet. I can tell the multi-step pattern they use for managing Effects is designed to streamline the process of things like using different REST methods, but I haven't quite grokked that step of the process.
 - How do we keep pages from breaking when new versions of components are deployed? This is a major issue that must have a simple resolution out there somewhere...
 - What libraries can we use? I couldn't get it to work with React libraries, which is extremely unfortunate.
+- The response returned from the REST API doesn't include the table labels, so we need to figure out how to retrieve those from whatever SN table their stored in and match them up
 
 ## Useful Links
 

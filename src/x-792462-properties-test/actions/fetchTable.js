@@ -3,20 +3,13 @@ import axios from 'axios';
 //////////////////// GET TABLE
 // the function we want to comprise the effect
 async function httpEffect(url, options, coeffects) {
-	const { dispatch, properties } = coeffects;
+	const { dispatch, properties, state } = coeffects;
 	const { tableName, limit, fields, queries } = properties;
-    console.log(properties)
+
+    if(state.tableData) return;
 
 	// build REST params
 	url += `${tableName}?sysparm_limit=${limit}&sysparm_fields=${fields}`;
-
-	// let queryArr = queries.split(/,\s*/);
-	// if (queries[0] !== '') {
-	// 	for (let query of queryArr) {
-	// 		url += `&${query}`;
-	// 	}
-	// }
-
     url += `&sysparm_query=${queries.replace(' ', '')}`;
 
 	dispatch('FETCH_STARTED');
