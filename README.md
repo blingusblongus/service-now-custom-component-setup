@@ -142,3 +142,5 @@ if(!state.tableData){
 - [Dan's Setup Instructions](https://creator-dna.com/blog/macos-setup)
 - [SN Table REST API docs](https://developer.servicenow.com/dev.do#!/reference/api/sandiego/rest/c_TableAPI#table-GET?navFilter=table) 
 - [SN Component Examples on Github](https://github.com/ServiceNowDevProgram/now-experience-component-examples)
+- [SN UI Framework Docs](https://developer.servicenow.com/dev.do#!/reference/now-experience/rome/ui-framework/getting-started/introduction)
+- [SN UI Framework Actions](https://developer.servicenow.com/dev.do#!/reference/now-experience/rome/ui-framework/main-concepts/dispatching-actions)
