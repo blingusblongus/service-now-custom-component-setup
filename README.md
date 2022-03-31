@@ -90,7 +90,7 @@ createCustomElement('x-792462-properties-test', {
 
 ## Setting up REST calls and Actions
 
-I don't remember if I tested this just yeeting to deployment, but at least in development, I had to use their
+I don't remember if I tested this just yeeting to deployment, but at least in development, calls to the REST API only went through when 
 
 ## Troubleshooting
 
