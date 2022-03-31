@@ -88,24 +88,33 @@ createCustomElement('x-792462-properties-test', {
 ```
 3. Access the properties in the view by destructuring state: `const { properties } = state`. Note that state is passed to the view (and effects, if included) by the createCustomElement() function, but must be passed manually to any subcomponents within the view.
 
+## Setting up REST calls and Actions
+
+I don't remember if I tested this just yeeting to deployment, but at least in development, I had to use their
+
 ## Troubleshooting
 
-- If you run into CORS errors in development, you may need to set a proxy in now-cli.json. For me, it ended up working whether or not I had the now-cli file configured (as long as you're logged in via the cli), but that suggestion still popped up on a lot of the documentation. ¯\\_(ツ)_/¯
+- If you run into CORS errors in development, you may need to set a proxy in now-cli.json. For me, it ended up working whether or not I had the now-cli file configured (as long as you're logged in via the cli, and using their action/effect to make the request), but that suggestion still popped up on a lot of the documentation. ¯\\_(ツ)_/¯
 
-```
-"development": {
-    "proxy": {
-      "origin" : "https://{your-instance}.service-now.com/",
-      "proxies": ["/api"]
-    }
-  },
-  ```
+    ```
+    "development": {
+        "proxy": {
+        "origin" : "https://{your-instance}.service-now.com/",
+        "proxies": ["/api"]
+        }
+    },
+    ```
+- Hmu with any questions about stuff that I didn't explain clearly or went different for you.
 
 ## Questions For Further Development
 
-- Not sure what the best way to dynamically style components is. [SN suggests themes](https://developer.servicenow.com/dev.do#!/reference/now-experience/quebec/ui-framework/main-concepts/styles), but I suspect that, for cases where we want maximum flexibility over just a few css properties, using CSS modules controlled from the UI Builder sidebar might be simpler. 
+- Not sure what the best way to dynamically style components is. [SN suggests themes](https://developer.servicenow.com/dev.do#!/reference/now-experience/quebec/ui-framework/main-concepts/styles), but I suspect that, for cases where we want maximum flexibility over just a few css properties, using CSS modules controlled from the UI Builder sidebar might be simpler.
+- PUT requests should be easy, but I haven't tried them yet. I can tell the multi-step pattern they use for managing Effects is designed to streamline the process of things like using different REST methods, but I haven't quite grokked that step of the process.
+- How do we keep pages from breaking when new versions of components are deployed? This is a major issue that must have a simple resolution out there somewhere...
+- What libraries can we use? I couldn't get it to work with React libraries, which is extremely unfortunate.
 
 ## Useful Links
 
 - [Dan's Setup Instructions](https://creator-dna.com/blog/macos-setup)
 - [SN Table REST API docs](https://developer.servicenow.com/dev.do#!/reference/api/sandiego/rest/c_TableAPI#table-GET?navFilter=table) 
+- [SN Component Examples on Github](https://github.com/ServiceNowDevProgram/now-experience-component-examples)
