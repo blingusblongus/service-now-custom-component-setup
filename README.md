@@ -34,8 +34,10 @@ To pass values from the UI Builder UI to a custom component, the component state
     5. "required" - bool; is this property required for the component to render
     6. "defaultValue" - The default value to be displayed in the UI builder sidebar pane
 
-        >*Note: the defaultValues provided in the now-ui.json will populate the fields on the UI Builder sidebar, but will are NOT used as the default values on state initialization - those get set in the createElement() function in index.js. So, fields in the UI sidebar may initially show values that don't match the state, until they're edited for the first time.*
+        >*Note: the defaultValues provided in the now-ui.json will populate the fields on the UI Builder sidebar, but will are NOT used as the default values on state initialization - those get set in the createElement() function in index.js. So, if you're not careful, fields in the UI sidebar may initially show values that don't match the actual values being used, until those fields edited for the first time.*
 ```
+// now-ui.json
+
 {
 	"components": {
 	    "x-792462-properties-test": {
@@ -67,6 +69,22 @@ To pass values from the UI Builder UI to a custom component, the component state
 					"defaultValue": "sys_user"
 				},
                 ...
+```
+2. In the createElement() function, add a property called 'properties' to the arguments - this will be automatically mapped with the matching properties defined in `now-ui.json`
+```
+// index.js (component level);
+
+createCustomElement('x-792462-properties-test', {
+	renderer: { type: snabbdom },
+	view,
+	styles,
+	properties: {
+		userName: { default: 'default user' },
+		tableName: { default: 'sys_user' },
+		fields: { default: '' },
+		limit: { default: '25' },
+		queries: { default: '' }
+	},
 ```
 
 ## Troubleshooting

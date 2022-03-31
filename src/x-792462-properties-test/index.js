@@ -28,9 +28,11 @@ createCustomElement('x-792462-properties-test', {
 		// success
 		FETCH_SUCCEEDED: ({ action, state, updateState }) => {
 			handleFetchTableSucceeded({ action });
-			// this is probably not ideal but it seems to work
+			// this is not ideal but prevents infinite rerenders
+			// does an extra REST call, and doesn't hot update in UI builder
+			const actionResult = action.payload.data.result;
 			if (state.tableData) return;
-			updateState({ tableData: action.payload.data.result });
+			updateState({ tableData: actionResult });
 		},
 		// fail
 		FETCH_FAILED: handleFetchTableFailed,
