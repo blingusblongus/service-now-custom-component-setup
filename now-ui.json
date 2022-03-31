@@ -4,7 +4,7 @@
 	        "innerComponents": [],
 			"uiBuilder": {
 				"associatedTypes": ["global.core", "global.landing-page"],
-				"label": "Table GET",
+				"label": "Table GET no defaults",
 				"icon": "document-outline",
 				"description": "Retrieve and filter a table",
 				"category": "primitives"

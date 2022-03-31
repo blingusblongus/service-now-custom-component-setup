@@ -1,5 +1,14 @@
 # Now Experience UI Custom Table Component Setup
 
+## Short Version
+1. Follow [Dan's instructions](https://creator-dna.com/blog/macos-setup), at which point you should be able to deploy a static component to your instance.
+2. Define the UI Builder sidebar fields by adding a 'properties' array to `now-ui.json`.
+3. Connect these properties to the state of the component by adding a 'properties' object (with `propertyName: { default: 'default value' }` in the createElement() function in the component's `index.js` file.
+4. Reference passed in properties inside components by with `const { properties } = state`
+5. Set up an Effect to query the ServiceNow REST api using the passed-in properties
+6. Connect that effect with the appropriate action and action handler (probably `{ COMPONENT_RENDERED } = actionTypes`, with actionTypes imported from '@service-now/core-ui`)
+7. Update component state with the response from the REST api, and render the result
+
 ## Setup
 
 1. To initialize the project, follow [the instructions Dan posted](https://creator-dna.com/blog/macos-setup). They worked perfectly for me (on Mac). Good luck on windows.
@@ -25,7 +34,7 @@ To pass values from the UI Builder UI to a custom component, the component state
     5. "required" - bool; is this property required for the component to render
     6. "defaultValue" - The default value to be displayed in the UI builder sidebar pane
 
-        >*Note: the defaultValues provided in the now-ui.json just *
+        >*Note: the defaultValues provided in the now-ui.json will populate the fields on the UI Builder sidebar, but will are NOT used as the default values on state initialization - those get set in the createElement() function in index.js. So, fields in the UI sidebar may initially show values that don't match the state, until they're edited for the first time.*
 ```
 {
 	"components": {
