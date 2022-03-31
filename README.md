@@ -85,6 +85,7 @@ createCustomElement('x-792462-properties-test', {
 		limit: { default: '25' },
 		queries: { default: '' }
 	},
+    ...
 ```
 3. Access the properties in the view by destructuring state: `const { properties } = state`. Note that state is passed to the view (and effects, if included) by the createCustomElement() function, but must be passed manually to any subcomponents within the view.
 
