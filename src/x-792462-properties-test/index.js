@@ -18,7 +18,7 @@ createCustomElement('x-792462-properties-test', {
 	properties: {
 		userName: { default: 'default user' },
 		tableName: { default: 'sys_user' },
-		fields: { default: '' },
+		fields: { default: 'user_password, first_name' },
 		limit: { default: '25' },
 		queries: { default: '' }
 	},

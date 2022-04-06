@@ -4,9 +4,15 @@ import axios from 'axios';
 // the function we want to comprise the effect
 async function httpEffect(url, options, coeffects) {
 	const { dispatch, properties, state } = coeffects;
-	const { tableName, limit, fields, queries } = properties;
+	let { tableName, limit, fields, queries } = properties;
 
     if(state.tableData) return;
+
+	//Make sure sys_id data is included
+	if(!fields.split(/,\s*/).includes('sys_id') && fields !== ''){
+		fields += ',sys_id';
+	}
+	console.log(fields);
 
 	// build REST params
 	url += `${tableName}?sysparm_limit=${limit}&sysparm_fields=${fields}`;
@@ -36,4 +42,4 @@ export const fetchTableEffect = createHttpEffect('api/now/table/');
 export const handleFetchTableSucceeded = ({ action }) => console.log(action.payload);
 
 // handler for fetch fail
-export const handleFetchTableFailed = ({ action }) => console.log('User fetch failed!')
+export const handleFetchTableFailed = ({ action }) => console.log('Table fetch failed!')
