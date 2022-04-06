@@ -1,4 +1,4 @@
-const TableComponent = ({ rows, fields, dispatch, editLocation }) => {
+const TableComponent = ({ rows, fields, dispatch, editLocation, properties }) => {
 
     fields = fields.split(/,\s*/);
 
@@ -7,12 +7,17 @@ const TableComponent = ({ rows, fields, dispatch, editLocation }) => {
         fields = Object.keys(rows[0]);
     }
 
+    const {
+        tableBoxShadow,
+        thFontSize,
+    } = properties;
+
     return (
         <div class="table-container" >
-            <table>
+            <table style={{boxShadow: tableBoxShadow}}>
                 <tr>
                     {fields.map(field => {
-                        return <th>{field}</th>
+                        return <th style={{fontSize: thFontSize }}>{field}</th>
                     })}
                 </tr>
 

@@ -33,11 +33,14 @@ createCustomElement('x-792462-properties-test', {
 		shouldRender: {
 			default: true
 		},
-		td_fontSize: {
+		tdFontSize: {
 			default: '12px'
 		},
-		th_fontSize: {
-			default: '16px'
+		thFontSize: {
+			default: '26px'
+		},
+		tableBoxShadow: {
+			default: '1px 1px 3px rgb(63, 63, 63)'
 		}
 	},
 	actionHandlers: {
