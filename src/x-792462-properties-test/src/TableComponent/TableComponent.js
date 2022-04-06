@@ -1,27 +1,44 @@
-const TableComponent = ({ rows, fields }) => {
-    // const fields = Object.keys(rows[0]);
-    console.log(rows);
-    console.log(fields);
+const TableComponent = ({ rows, fields, dispatch, editLocation }) => {
 
     fields = fields.split(/,\s*/);
 
     //handle empty field arguments
-    if(fields.length < 2 && fields[0] === ''){
+    if (fields.length < 2 && fields[0] === '') {
         fields = Object.keys(rows[0]);
     }
-    
+
     return (
-        <div class="table-container">
+        <div class="table-container" >
             <table>
                 <tr>
                     {fields.map(field => {
                         return <th>{field}</th>
                     })}
                 </tr>
+
                 {rows.map((row, i) => {
                     return <tr key={i}>
-                        {fields.map((field, i) => {
-                            return <td key={i}>{row[field]}</td>
+                        {fields.map((field, j) => {
+
+                            if (editLocation.rowIndex === i && editLocation.field === field) {
+                                return <input
+                                    value={row[field]}
+                                    on-blur={(e) => dispatch('CELL_BLUR', {
+                                        location: {
+                                            field: field,
+                                            sys_id: row.sys_id,
+                                            newValue: e.target.value,
+                                        },
+                                        newValue: e.target.value,
+                                    })}
+                                />
+                            } else {
+                                return <td key={j}
+                                    on-click={() => dispatch('EDIT_CELL', { rowIndex: i, field: field })}
+                                >
+                                    {row[field]}
+                                </td>
+                            }
                         })}
                     </tr>
                 })}
