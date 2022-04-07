@@ -126,7 +126,7 @@
 					"fieldType": "string",
 					"required": false,
 					"defaultValue": "{}"
-				},
+				}
             ]
 	    }
 	},
