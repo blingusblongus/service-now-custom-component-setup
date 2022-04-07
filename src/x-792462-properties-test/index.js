@@ -91,7 +91,6 @@ createCustomElement('x-792462-properties-test', {
 						rowIndex: null,
 						field: null,
 					}})
-					// updateProperties({rerender: !state.properties.rerender})
 					dispatch('FETCH_TABLE');
 				} catch (err) {
 					console.error(err);
