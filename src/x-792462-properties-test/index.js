@@ -37,26 +37,28 @@ createCustomElement('x-792462-properties-test', {
 			default: '12px'
 		},
 		tdBorder: {
-			default: '1px solid gray',
-		},
-		tdPadding: {
-			default: '3px'
-		},
-		tdMargin: {
-			default: '10px'
+			default: '1px solid lightgray',
 		},
 		thFontSize: {
 			default: '26px'
 		},
-		tableBoxShadow: {
-			default: '1px 1px 3px rgb(63, 63, 63)'
+		tableStyles: {
+			default: '{"padding":"20px", "width":"100%"}'
+		},
+		thStyles: {
+			default: '{}',
+		},
+		tdStyles: {
+			default: '{}',
+		},
+		unSnake: {
+			default: true,
 		}
 	},
 	actionHandlers: {
 		// dispatched within component view or COMPONENT_CONNECTED action handler
 		[COMPONENT_RENDERED]: createHttpEffect('api/now/table/', { type: 'GET' }),
 		FETCH_TABLE: () => {
-			console.log('hello')
 			createHttpEffect('api/now/table/', { type: 'GET' })
 		},
 		// success
@@ -82,6 +84,10 @@ createCustomElement('x-792462-properties-test', {
 					const result = await axios.put(`api/now/table/${state.properties.tableName}/${sys_id}`, 
 						{[field]: newValue});
 					console.log('SUCCESS,', result);
+					updateProperties({editLocation: {
+						rowIndex: null,
+						field: null,
+					}})
 					// updateProperties({rerender: !state.properties.rerender})
 					dispatch('FETCH_TABLE');
 				} catch (err) {

@@ -8,34 +8,43 @@ const TableComponent = ({ rows, fields, dispatch, editLocation, properties }) =>
     }
 
     const {
-        tableBoxShadow,
         thFontSize,
+        tdFontSize,
         tdBorder,
-        tdPadding,
-        tdMargin,
+        tableStyles,
+        thStyles,
+        tdStyles,
+        unSnake,
     } = properties;
 
-    console.log(tdBorder)
+
+    const combinedThStyles = {fontSize: thFontSize, ...JSON.parse(thStyles)};
+    const combinedTdStyles = {fontSize: tdFontSize, border: tdBorder, ...JSON.parse(tdStyles)};
+    
+    const handleCase = (str) => {
+        if(!unSnake) return str;
+        let words = str.split(/_/).map(word => {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        return words.join(' ');
+    }
 
     return (
-        <div class="table-container" >
-            <table style={{ boxShadow: tableBoxShadow }}>
+        <div className="table-container" >
+            <table style={(tableStyles && JSON.parse(tableStyles))}>
                 <tr>
                     {fields.map(field => {
-                        return <th style={{ fontSize: thFontSize }}>{field}</th>
+                        return <th style={combinedThStyles}>{handleCase(field)}</th>
                     })}
                 </tr>
 
                 {rows.map((row, i) => {
                     return <tr key={i}>
                         {fields.map((field, j) => {
-
                             if (editLocation.rowIndex === i && editLocation.field === field) {
-                                return <td style={{
-                                    border: tdBorder
-                                }}>
+                                return <td style={combinedTdStyles}>
                                     <input
-                                        width='50%'
+                                        className="td-input"
                                         value={row[field]}
                                         on-blur={(e) => dispatch('CELL_BLUR', {
                                             location: {
@@ -45,16 +54,12 @@ const TableComponent = ({ rows, fields, dispatch, editLocation, properties }) =>
                                             },
                                             newValue: e.target.value,
                                         })}
-
+                                        autofocus
                                     />
                                 </td>
                             } else {
                                 return <td key={j}
-                                    style={{
-                                        border: tdBorder,
-                                        tdPadding: tdPadding,
-                                        tdMargin: tdMargin,
-                                    }}
+                                    style={combinedTdStyles}
                                     on-click={() => dispatch('EDIT_CELL', { rowIndex: i, field: field })}
                                 >
                                     {row[field]}

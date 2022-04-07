@@ -5,15 +5,20 @@
 }
 
 .table-container {
-    width: 50%;
+    width: 80%;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 1px 1px 3px rgb(63, 63, 63);
 }
 
 table {
-    margin: 10px auto;
-    // background-color: rgb(241, 255, 239);
-    border-radius: 10px;
-    box-shadow: 1px 1px 3px rgb(63, 63, 63);
-    padding: 10px;
+    // margin: 10px auto;
+    // // background-color: rgb(241, 255, 239);
+    // border-radius: 10px;
+    // box-shadow: 1px 1px 3px rgb(63, 63, 63);
+    // padding: 10px;
+    border-collapse: collapse;
 }
 
 tr:hover {
@@ -22,5 +27,13 @@ tr:hover {
 
 th {
     padding-right: 1rem;
-    text-align: right;
+    text-align: center;
+}
+
+td input {
+    width: 80%;
+    padding: 0;
+    margin: 0;
+    border-style: none none solid none;
+    background-color: #efefef;
 }

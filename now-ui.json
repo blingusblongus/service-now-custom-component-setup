@@ -54,6 +54,69 @@
 					"fieldType": "string",
 					"required": false,
 					"defaultValue": "active=true"
+				},
+				{
+					"name": "unSnake",
+					"label": "Snake",
+					"description": "Translate header strings from snake_case",
+					"readOnly": false,
+					"fieldType": "boolean",
+					"required": false,
+					"defaultValue": true
+				},
+				{
+					"name": "thFontSize",
+					"label": "Header Font Size",
+					"description": "",
+					"readOnly": false,
+					"fieldType": "string",
+					"required": false,
+					"defaultValue": "16px"
+				},
+				{
+					"name": "tdFontSize",
+					"label": "Cell Font Size",
+					"description": "",
+					"readOnly": false,
+					"fieldType": "string",
+					"required": false,
+					"defaultValue": "12px"
+				},
+				{
+					"name": "tdBorder",
+					"label": "Cell Border",
+					"description": "",
+					"readOnly": false,
+					"fieldType": "string",
+					"required": false,
+					"defaultValue": "1px solid lightgray"
+				},
+				{
+					"name": "tableStyles",
+					"label": "Custom Table Styles",
+					"description": "JSON object of additional styles to apply to the component",
+					"readOnly": false,
+					"fieldType": "string",
+					"required": false,
+					"defaultValue": "{}"
+				},
+				{
+					"name": "thStyles",
+					"label": "Custom th Styles",
+					"description": "JSON object of additional styles to apply to the component",
+					"readOnly": false,
+					"fieldType": "string",
+					"required": false,
+					"defaultValue": "{}"
+				},
+				{
+					"name": "tdStyles",
+					"label": "Custom td Styles",
+					"description": "JSON object of additional styles to apply to the component",
+					"readOnly": false,
+					"fieldType": "string",
+					"required": false,
+					"defaultValue": "{}"
 				}
             ]
 	    }
