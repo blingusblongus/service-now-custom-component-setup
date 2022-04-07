@@ -10,14 +10,19 @@ const TableComponent = ({ rows, fields, dispatch, editLocation, properties }) =>
     const {
         tableBoxShadow,
         thFontSize,
+        tdBorder,
+        tdPadding,
+        tdMargin,
     } = properties;
+
+    console.log(tdBorder)
 
     return (
         <div class="table-container" >
-            <table style={{boxShadow: tableBoxShadow}}>
+            <table style={{ boxShadow: tableBoxShadow }}>
                 <tr>
                     {fields.map(field => {
-                        return <th style={{fontSize: thFontSize }}>{field}</th>
+                        return <th style={{ fontSize: thFontSize }}>{field}</th>
                     })}
                 </tr>
 
@@ -26,19 +31,30 @@ const TableComponent = ({ rows, fields, dispatch, editLocation, properties }) =>
                         {fields.map((field, j) => {
 
                             if (editLocation.rowIndex === i && editLocation.field === field) {
-                                return <input
-                                    value={row[field]}
-                                    on-blur={(e) => dispatch('CELL_BLUR', {
-                                        location: {
-                                            field: field,
-                                            sys_id: row.sys_id,
+                                return <td style={{
+                                    border: tdBorder
+                                }}>
+                                    <input
+                                        width='50%'
+                                        value={row[field]}
+                                        on-blur={(e) => dispatch('CELL_BLUR', {
+                                            location: {
+                                                field: field,
+                                                sys_id: row.sys_id,
+                                                newValue: e.target.value,
+                                            },
                                             newValue: e.target.value,
-                                        },
-                                        newValue: e.target.value,
-                                    })}
-                                />
+                                        })}
+
+                                    />
+                                </td>
                             } else {
                                 return <td key={j}
+                                    style={{
+                                        border: tdBorder,
+                                        tdPadding: tdPadding,
+                                        tdMargin: tdMargin,
+                                    }}
                                     on-click={() => dispatch('EDIT_CELL', { rowIndex: i, field: field })}
                                 >
                                     {row[field]}

@@ -36,6 +36,15 @@ createCustomElement('x-792462-properties-test', {
 		tdFontSize: {
 			default: '12px'
 		},
+		tdBorder: {
+			default: '1px solid gray',
+		},
+		tdPadding: {
+			default: '3px'
+		},
+		tdMargin: {
+			default: '10px'
+		},
 		thFontSize: {
 			default: '26px'
 		},
