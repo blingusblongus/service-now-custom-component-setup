@@ -12,6 +12,7 @@ const TableComponent = ({ rows, fields, dispatch, editLocation, properties }) =>
         tdFontSize,
         tdBorder,
         tableStyles,
+        containerStyles,
         thStyles,
         tdStyles,
         unSnake,
@@ -30,7 +31,7 @@ const TableComponent = ({ rows, fields, dispatch, editLocation, properties }) =>
     }
 
     return (
-        <div className="table-container" >
+        <div className="table-container" style={JSON.parse(containerStyles)}>
             <table style={(tableStyles && JSON.parse(tableStyles))}>
                 <tr>
                     {fields.map(field => {

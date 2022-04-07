@@ -117,7 +117,16 @@
 					"fieldType": "string",
 					"required": false,
 					"defaultValue": "{}"
-				}
+				},
+				{
+					"name": "containerStyles",
+					"label": "Custom Table Container Styles",
+					"description": "JSON object of additional styles to apply to the component",
+					"readOnly": false,
+					"fieldType": "string",
+					"required": false,
+					"defaultValue": "{}"
+				},
             ]
 	    }
 	},

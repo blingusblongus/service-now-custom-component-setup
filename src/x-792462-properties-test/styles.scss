@@ -5,11 +5,11 @@
 }
 
 .table-container {
-    width: 80%;
     border: 1px solid gray;
     border-radius: 10px;
     padding: 10px;
     box-shadow: 1px 1px 3px rgb(63, 63, 63);
+    margin: auto;
 }
 
 table {
@@ -19,6 +19,7 @@ table {
     // box-shadow: 1px 1px 3px rgb(63, 63, 63);
     // padding: 10px;
     border-collapse: collapse;
+    margin: auto;
 }
 
 tr:hover {

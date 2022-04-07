@@ -53,6 +53,9 @@ createCustomElement('x-792462-properties-test', {
 		},
 		unSnake: {
 			default: true,
+		},
+		containerStyles: {
+			default: '{}'
 		}
 	},
 	actionHandlers: {
