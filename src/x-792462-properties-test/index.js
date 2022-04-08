@@ -2,7 +2,7 @@ import { createCustomElement, actionTypes } from '@servicenow/ui-core';
 import snabbdom from '@servicenow/ui-renderer-snabbdom';
 import styles from './styles.scss';
 import axios from 'axios';
-// import { createHttpEffect } from '@servicenow/ui-effect-http';
+
 import view from './src/view';
 import {
 	fetchTableEffect,
@@ -10,7 +10,6 @@ import {
 	handleFetchTableFailed,
 	createHttpEffect,
 } from './actions/fetchTable';
-// import { createHttpEffect } from '@servicenow/ui-effect-http/typings';
 
 const { COMPONENT_RENDERED } = actionTypes;
 

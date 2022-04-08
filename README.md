@@ -116,6 +116,44 @@ if(!state.tableData){
 >*I just this minute realized that using actions is actually completely optional. It's just SN's weird way of using the component lifecycle to kick off events, and send information by dispatching actions from anywhere in the component. Ultimately, it's definitely useful for complex components or doing certain actions at different stages of the lifecycle, but for simple cases, using actions to kick off REST calls isn't necessary. So I'm not actually going to describe them here because I only barely know what I'm talking about*
 
 
+## Ok, Actions
+
+Now Experience Components use action handlers to pass any data you don't want to pass down directly through props, and also to kick off other actions if you have a more complicated workflow or functions you want to reuse (like handling and displaying errors, for instance). In the object passed into the createCustomElement() function, you can add the property actionHandlers, which maps to an object in which the keys are the actions, and the values contain methods to execute. Dispatched actions follow the format of dispatch(type, payload). For example:
+
+```
+//dispatch is included in the state of any element made with createCustomElement, and can be accessed by destructuring:
+
+const view = (state, {dispatch}) => {
+
+
+	//clicking this element will dispatch an action that can be picked up by any custom element
+	return <div on-click={() => dispatch('EXAMPLE_TYPE', {msg: 'I was clicked'})}>Click Me</div>
+}
+
+
+// it gets picked up here:
+createCustomElement('element-name', {
+	...
+	actionHandlers: {
+		//actions are passed to the handler along with a bunch of coeffects, including state, you can destructure to access them
+		EXAMPLE_TYPE: ({action}) => {
+			alert(action.payload);
+		}
+	}
+})
+```
+
+## Making the Table Interactive
+
+For a simple but interactive test to expand functionality, I set a goal to make table fields editable on-click, and have the on-blur event trigger a PUT request to update the table on the ServiceNow instance. To achieve this, it is necessary to:
+
+1. Track the selected cell in the component state.
+2. Conditionally render table cells based on state.
+3. Capture the info from the changed cell on blur.
+4. Trigger a REST call with the captured info. 
+
+The pattern that SN suggests is to create an entirely new subcomponent using the provided createCustomElement() function and the snabbdom renderer, which would be best practice for a large and complex component, where multiple subcomponents all need to be tracking their own state - this is ideal for performance reasons. However, for simplicity's sake, I kept all stateful data in the top-level component, and just conditionally rendered an html input in whichever cell matches the field and sys_id of the editLocation property of the component state. The on-click event triggers an action
+
 ## Troubleshooting
 
 - If you run into CORS errors in development, make sure the url you're providing is just the endpoint, not the whole address (`axios.get('api/now/tables/tableName')`, for example). If it still doesn't work, you may need to set a proxy in now-cli.json. For me, it ended up working whether or not I had the now-cli file configured (as long as you're logged in via the cli, and using their action/effect to make the request), but that suggestion still popped up on a lot of the documentation. ¯\\_(ツ)_/¯
