@@ -1,3 +1,5 @@
+import { handleCase } from '../../utils/utils.js';
+
 const TableComponent = ({ rows, fields, dispatch, editLocation, properties }) => {
 
     fields = fields.split(/,\s*/);
@@ -18,24 +20,22 @@ const TableComponent = ({ rows, fields, dispatch, editLocation, properties }) =>
         unSnake,
     } = properties;
 
-
-    const combinedThStyles = {fontSize: thFontSize, ...JSON.parse(thStyles)};
-    const combinedTdStyles = {fontSize: tdFontSize, border: tdBorder, ...JSON.parse(tdStyles)};
-    
     const handleCase = (str) => {
-        if(!unSnake) return str;
         let words = str.split(/_/).map(word => {
             return word.charAt(0).toUpperCase() + word.slice(1);
         })
         return words.join(' ');
     }
+    const combinedThStyles = {fontSize: thFontSize, ...JSON.parse(thStyles)};
+    const combinedTdStyles = {fontSize: tdFontSize, border: tdBorder, ...JSON.parse(tdStyles)};
 
     return (
         <div className="table-container" style={JSON.parse(containerStyles)}>
             <table style={(tableStyles && JSON.parse(tableStyles))}>
                 <tr>
                     {fields.map(field => {
-                        return <th style={combinedThStyles}>{handleCase(field)}</th>
+                        let header = unSnake ? handleCase(field) : field;
+                        return <th style={combinedThStyles}>{header}</th>
                     })}
                 </tr>
 
