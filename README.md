@@ -143,6 +143,8 @@ createCustomElement('element-name', {
 })
 ```
 
+A typical pattern would be to send a dispatch with a payload containing data from a subcomponent, which is caught by a handler that packages that data with whatever data is stored in the top-level component properties and calls a generic function to take that data and make an API request with it, triggering other actions or a rerender with the response from the API.
+
 ## Making the Table Interactive
 
 For a simple but interactive test to expand functionality, I set a goal to make table fields editable on-click, and have the on-blur event trigger a PUT request to update the table on the ServiceNow instance. To achieve this, it is necessary to:
@@ -151,8 +153,13 @@ For a simple but interactive test to expand functionality, I set a goal to make 
 2. Conditionally render table cells based on state.
 3. Capture the info from the changed cell on blur.
 4. Trigger a REST call with the captured info. 
+5. Trigger a rerender or error, depending on the request response.
 
-The pattern that SN suggests is to create an entirely new subcomponent using the provided createCustomElement() function and the snabbdom renderer, which would be best practice for a large and complex component, where multiple subcomponents all need to be tracking their own state - this is ideal for performance reasons. However, for simplicity's sake, I kept all stateful data in the top-level component, and just conditionally rendered an html input in whichever cell matches the field and sys_id of the editLocation property of the component state. The on-click event triggers an action
+The pattern that SN suggests is to create an entirely new subcomponent using the provided createCustomElement() function and the snabbdom renderer, which would be best practice for a large and complex component, where multiple subcomponents all need to be tracking their own state - this is ideal for performance reasons. However, for simplicity's sake, I kept all stateful data in the top-level component, and just conditionally rendered an html input in whichever cell matches the field and sys_id of the editLocation property of the component state. The on-click event triggers an action,
+
+## Styling
+
+Since the stylesheet only loads when the page is first fetched, conditional rendering in React-based frameworks must be done after-the fact, by applying classes or directly applying styles to elements on render. Default since you can't define new classes (at least not in the .scss) after page load, so my strategy was to pull out a few key styles to target explicitly, and then combine them with a generic JSON object representing an element's styles and inject them. 
 
 ## Troubleshooting
 
@@ -170,9 +177,6 @@ The pattern that SN suggests is to create an entirely new subcomponent using the
 
 ## Questions For Further Development
 
-- Not sure what the best way to dynamically style components is. [SN suggests themes](https://developer.servicenow.com/dev.do#!/reference/now-experience/quebec/ui-framework/main-concepts/styles), but I suspect that, for cases where we want maximum flexibility over just a few css properties, using CSS modules controlled from the UI Builder sidebar might be simpler.
-- PUT requests should be easy, but I haven't tried them yet. I can tell the multi-step pattern they use for managing Effects is designed to streamline the process of things like using different REST methods, but I haven't quite grokked that step of the process.
-- How do we keep pages from breaking when new versions of components are deployed? This is a major issue that must have a simple resolution out there somewhere...
 - What libraries can we use? I couldn't get it to work with React libraries, which is extremely unfortunate.
 - The response returned from the REST API doesn't include the table labels, so we need to figure out how to retrieve those from whatever SN table their stored in and match them up
 
