@@ -7,7 +7,7 @@
 4. Reference passed in properties inside components by with `const { properties } = state`
 5. Set up an Effect to query the ServiceNow REST api using the passed-in properties
 6. Connect that effect with the appropriate action and action handler (probably `{ COMPONENT_RENDERED } = actionTypes`, with actionTypes imported from '@service-now/core-ui`)
-7. Update component state with the response from the REST api, and render the result
+7. Update component state/properties with the response from the REST api, and render the result
 
 ## Setup
 
@@ -18,7 +18,9 @@
 
 At this point, you should be able to run `snc ui-component develop` and view the component in the browser, and, if you want to, deploy it with `snc ui-component deploy --force`. 
 
-> *When overwriting a component that's been deployed to an instance, existing links to that component in UI builder seem to break and will bork your existing UI builder project. I didn't investigate enough to really figure out what was going on or how to prevent it, but just created a new page variant when deploying to quickly test new iterations. I'm sure there's a way to fix this...?* 
+> *When overwriting a component that's been deployed to an instance, existing links to that component in UI builder seem to break and will bork your existing UI builder project. I didn't investigate enough to really figure out what was going on or how to prevent it, but just created a new page variant when deploying to quickly test new iterations. I'm sure there's a way to fix this...?*
+	
+> *Update: This problem may actually have disappeared for me - not sure what changed. It might actually have more to do with the scope of the workspace you're deploying to.*
 
 I eventually refactored out my view and actions to better match the [Now Experience Component Examples](https://github.com/blingusblongus/now-experience-component-examples), but it was easier initially to keep the component and render function as they are, together in index.js.
 
@@ -94,7 +96,9 @@ createCustomElement('x-792462-properties-test', {
 Using the properties passed in from the UI builder sidebar, you can then just formulate a normal request to the REST API, and update the state when the data is returned.
 
 ```
-// This isn't actually how I did it, because I made it more complicated than it needed to be by using action handlers to hook into the lifecycle...but here's the simplified and unstreamlined way to do exactly one REST call when the component loads, and then rerender when the data arrives.
+/* 
+An example of a typical REST call to the ServiceNOW Table API. If triggered by the COMPONENT_RENDERED action, watch out for loops - a response that updates state or properties will trigger a rerender, and dispatch the COMPONENT_RENDERED action again.
+*/
 
 const { tableName, limit, fields, queries } = properties;
 
@@ -112,8 +116,6 @@ if(!state.tableData){
 }
 
 ```
-
->*I just this minute realized that using actions is actually completely optional. It's just SN's weird way of using the component lifecycle to kick off events, and send information by dispatching actions from anywhere in the component. Ultimately, it's definitely useful for complex components or doing certain actions at different stages of the lifecycle, but for simple cases, using actions to kick off REST calls isn't necessary. So I'm not actually going to describe them here because I only barely know what I'm talking about*
 
 
 ## Ok, Actions
@@ -159,7 +161,8 @@ The pattern that SN suggests is to create an entirely new subcomponent using the
 
 ## Styling
 
-Since the stylesheet only loads when the page is first fetched, conditional rendering in React-based frameworks must be done after-the fact, by applying classes or directly applying styles to elements on render. Default since you can't define new classes (at least not in the .scss) after page load, so my strategy was to pull out a few key styles to target explicitly, and then combine them with a generic JSON object representing an element's styles and inject them. 
+Since the stylesheet only loads when the page is first fetched, conditional rendering in React-based frameworks must be done after-the fact, by applying classes or directly applying styles to elements on render. Because of this, the most direct way to programmatically apply styles is to inject them as object notation into the style attribute of the component or elements that you're looking to style.
+
 
 ## Troubleshooting
 
@@ -173,6 +176,8 @@ Since the stylesheet only loads when the page is first fetched, conditional rend
         }
     },
     ```
+
+- Adding `"react-error-overlay": "6.0.9"` to devDependencies in package.json should fix the 'process is not defined' error.
 - Hmu with any questions about stuff that I didn't explain clearly or went different for you, or other questions about how to organize or pass properties to child components.
 
 ## Questions For Further Development
