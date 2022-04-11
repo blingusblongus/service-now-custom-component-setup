@@ -163,6 +163,7 @@ The pattern that SN suggests is to create an entirely new subcomponent using the
 
 Since the stylesheet only loads when the page is first fetched, conditional rendering in React-based frameworks must be done after-the fact, by applying classes or directly applying styles to elements on render. Because of this, the most direct way to programmatically apply styles is to inject them as object notation into the style attribute of the component or elements that you're looking to style.
 
+Using a library like JSS would probably streamline this process.
 
 ## Troubleshooting
 
@@ -178,6 +179,11 @@ Since the stylesheet only loads when the page is first fetched, conditional rend
     ```
 
 - Adding `"react-error-overlay": "6.0.9"` to devDependencies in package.json should fix the 'process is not defined' error.
+- If API requests are not being proxied properly, you probably need to kill the process running on port 3000, and then boot up the development environment again. It seems that when you boot it and it hangs, that process is still necessary for the proxy to work. So if your API request is well-formed and works in the browser or in postman, but not in the development environment:
+	- run `killall node`
+	- run `snc component deploy`
+	- When it hangs, `control + C` (on mac) to exit
+	- run `snc component deploy` - it should give a EADDRESSINUSE error and then launch on port 8081. Not sure why it has to be this way, but that's the only way I could get it to work.
 - Hmu with any questions about stuff that I didn't explain clearly or went different for you, or other questions about how to organize or pass properties to child components.
 
 ## Questions For Further Development
