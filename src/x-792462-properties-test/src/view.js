@@ -1,8 +1,8 @@
 import TableComponent from './TableComponent/TableComponent';
 
 const view = (state, { updateState, dispatch }) => {
-	const { properties, tableData, editRow } = state;
-	const {fields} = properties;
+    const { properties, tableData, editRow } = state;
+    const { fields } = properties;
 
     /* 
     ALTERNATE METHOD TO USING COMPONENT_RENDERED ACTION HANDLER & createHttpRequest()
@@ -14,20 +14,20 @@ const view = (state, { updateState, dispatch }) => {
             updateState({tableData: response.data.result})
         })
         .catch(err => console.log(err));
-	*/
-    
-	return (
-		<view>
-			<div className="text-center">Hello {properties.userName}</div>	
-			{tableData && <TableComponent 
-                rows={tableData} 
-                fields={fields} 
+    */
+
+    return (
+        <view>
+            <div className="text-center">Hello {properties.userName}</div>
+            {tableData && <TableComponent
+                rows={tableData}
+                fields={fields}
                 dispatch={dispatch}
                 editLocation={state.properties.editLocation}
                 properties={properties}
-                />}
-		</view>
-	);
+            />}
+        </view>
+    );
 
 };
 

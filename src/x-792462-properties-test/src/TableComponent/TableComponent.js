@@ -26,8 +26,8 @@ const TableComponent = ({ rows, fields, dispatch, editLocation, properties }) =>
         })
         return words.join(' ');
     }
-    const combinedThStyles = {fontSize: thFontSize, ...JSON.parse(thStyles)};
-    const combinedTdStyles = {fontSize: tdFontSize, border: tdBorder, ...JSON.parse(tdStyles)};
+    const combinedThStyles = { fontSize: thFontSize, ...JSON.parse(thStyles) };
+    const combinedTdStyles = { fontSize: tdFontSize, border: tdBorder, ...JSON.parse(tdStyles) };
 
     return (
         <div className="table-container" style={JSON.parse(containerStyles)}>

@@ -28,13 +28,13 @@ async function httpEffect(url, options, coeffects) {
 			dispatch('FETCH_FAILED', e, {}, true)
 			console.log(e);
 		}
-	}else if(options.type === 'PUT') {
+	} else if (options.type === 'PUT') {
 		url += `${tableName}/${options.sys_id}`;
 
-		try{
+		try {
 			const result = await axios.put(url, options.body);
 			console.log('PUT SUCCESS', result)
-		}catch(err){
+		} catch (err) {
 			console.error(err);
 		}
 	}
