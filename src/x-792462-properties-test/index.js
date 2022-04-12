@@ -13,9 +13,26 @@ import {
 
 const { COMPONENT_RENDERED } = actionTypes;
 
+
+const newView = (state, {updateState}) => {
+	const getStuff = async () => {
+		let result = await axios.get('api/now/table/sys_user?sysparm_limit=100');
+		const response = 
+		updateState({tableData: result});
+	}
+
+	if(!state.tableData){
+		getStuff();
+	}
+
+  return (
+	<div><pre>{state.tableData}</pre></div>
+  )
+}
+
 createCustomElement('x-792462-properties-test', {
 	renderer: { type: snabbdom },
-	view,
+	view: newView,
 	styles,
 	properties: {
 		userName: { default: 'default user' },
@@ -59,7 +76,7 @@ createCustomElement('x-792462-properties-test', {
 	},
 	actionHandlers: {
 		// dispatched within component view or COMPONENT_CONNECTED action handler
-		[COMPONENT_RENDERED]: createHttpEffect('api/now/table/', { type: 'GET' }),
+		// [COMPONENT_RENDERED]: createHttpEffect('api/now/table/', { type: 'GET' }),
 		FETCH_TABLE: () => {
 			createHttpEffect('api/now/table/', { type: 'GET' })
 		},

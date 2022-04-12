@@ -1,7 +1,6 @@
 import { handleCase } from '../../utils/utils.js';
 
 const TableComponent = ({ rows, fields, dispatch, editLocation, properties }) => {
-
     fields = fields.split(/,\s*/);
 
     //handle empty field arguments

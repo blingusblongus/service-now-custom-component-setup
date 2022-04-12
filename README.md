@@ -157,7 +157,7 @@ For a simple but interactive test to expand functionality, I set a goal to make 
 4. Trigger a REST call with the captured info. 
 5. Trigger a rerender or error, depending on the request response.
 
-The pattern that SN suggests is to create an entirely new subcomponent using the provided createCustomElement() function and the snabbdom renderer, which would be best practice for a large and complex component, where multiple subcomponents all need to be tracking their own state - this is ideal for performance reasons. However, for simplicity's sake, I kept all stateful data in the top-level component, and just conditionally rendered an html input in whichever cell matches the field and sys_id of the editLocation property of the component state. The on-click event triggers an action,
+The pattern that SN suggests is to create an entirely new subcomponent using the provided createCustomElement() function and the snabbdom renderer, which would be best practice for a large and complex component, where multiple subcomponents all need to be tracking their own state - this is ideal for performance reasons, and for organizing large projects. However, you can still share data via props, which is sometimes easier than creating a brand new element with the createCustomElement function.
 
 ## Styling
 
